@@ -1,0 +1,27 @@
+{
+  "name": "todoist-backend-automation",
+  "version": "1.0.0",
+  "description": "2nd assignment for Wizeline QA Automation testing certification",
+  "main": "index.js",
+  "scripts": {
+    "test": "node tests/TestScript.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kingarturs/todoist-backend-automation.git"
+  },
+  "keywords": [
+    "newman"
+  ],
+  "author": "Luis Arturo García González",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/Kingarturs/todoist-backend-automation/issues"
+  },
+  "homepage": "https://github.com/Kingarturs/todoist-backend-automation#readme",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "newman": "^5.2.2",
+    "newman-reporter-htmlextra": "^1.20.1"
+  }
+}

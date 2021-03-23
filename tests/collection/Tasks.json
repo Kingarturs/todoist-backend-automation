@@ -1,0 +1,114 @@
+{
+	"info": {
+		"_postman_id": "489724ce-923d-4412-a5c3-964d5e6b5c9c",
+		"name": "Tasks",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create tasks CSV",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var content = pm.variables.get(\"taskContent\");\r",
+							"var jsonData = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Status code is 2xx\", function () {\r",
+							"    pm.response.to.be.success;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Content-Type is application/json\", function () {\r",
+							"    pm.response.to.be.header(\"Content-Type\", \"application/json\");\r",
+							"});\r",
+							"\r",
+							"var schema = {\r",
+							"    \"type\": \"object\",\r",
+							"    \"required\": [\r",
+							"        \"id\",\r",
+							"        \"assigner\",\r",
+							"        \"project_id\",\r",
+							"        \"section_id\",\r",
+							"        \"order\",\r",
+							"        \"content\",\r",
+							"        \"completed\",\r",
+							"        \"label_ids\",\r",
+							"        \"priority\",\r",
+							"        \"comment_count\",\r",
+							"        \"creator\",\r",
+							"        \"created\",\r",
+							"        \"url\"\r",
+							"    ],\r",
+							"    \"properties\": {\r",
+							"        \"id\": {\"type\": \"number\"},\r",
+							"        \"assigner\": {\"type\": \"number\"},\r",
+							"        \"project_id\": {\"type\": \"number\"},\r",
+							"        \"section_id\": {\"type\": \"number\"},\r",
+							"        \"order\": {\"type\": \"number\"},\r",
+							"        \"content\": {\"type\": \"string\"},\r",
+							"        \"completed\": {\"type\": \"boolean\"},\r",
+							"        \"label_ids\": {\"type\": \"array\"},\r",
+							"        \"priority\": {\"type\": \"number\"},\r",
+							"        \"comment_count\": {\"type\": \"number\"},\r",
+							"        \"creator\": {\"type\": \"number\"},\r",
+							"        \"created\": {\"type\": \"string\"},\r",
+							"        \"url\": {\"type\": \"string\",}\r",
+							"    }\r",
+							"}\r",
+							"\r",
+							"pm.test('Schema is valid', function () {\r",
+							"    pm.expect(tv4.validate(pm.response.json(), schema)).to.be.true;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Task content is correct\", function() {\r",
+							"    pm.expect(jsonData.content).to.eql(content);\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Response time is less than 400ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(400);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-Requested-Id",
+						"value": "$(uuidgen)",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"content\": \"{{taskContent}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}",
+					"host": [
+						"{{baseURL}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

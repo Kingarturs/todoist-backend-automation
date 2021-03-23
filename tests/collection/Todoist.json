@@ -1,0 +1,624 @@
+{
+	"info": {
+		"_postman_id": "7cf60e74-994f-494c-bfb9-e646d642577e",
+		"name": "Todoist",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "TASKS",
+			"item": [
+				{
+					"name": "Get tasks",
+					"item": [
+						{
+							"name": "Get active tasks",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 2xx\", function () {\r",
+											"    pm.response.to.be.success;\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Content-Type is application/json\", function () {\r",
+											"    pm.response.to.be.header(\"Content-Type\", \"application/json\");\r",
+											"});\r",
+											"\r",
+											"var schema = {\r",
+											"    \"type\": \"array\",\r",
+											"    \"items\": [{\r",
+											"        \"required\": [\r",
+											"            \"id\",\r",
+											"            \"assigner\",\r",
+											"            \"project_id\",\r",
+											"            \"section_id\",\r",
+											"            \"order\",\r",
+											"            \"content\",\r",
+											"            \"completed\",\r",
+											"            \"label_ids\",\r",
+											"            \"priority\",\r",
+											"            \"comment_count\",\r",
+											"            \"creator\",\r",
+											"            \"created\",\r",
+											"            \"url\"\r",
+											"        ],\r",
+											"        \"properties\": {\r",
+											"            \"id\": {\"type\": \"number\"},\r",
+											"            \"assigner\": {\"type\": \"number\"},\r",
+											"            \"project_id\": {\"type\": \"number\"},\r",
+											"            \"section_id\": {\"type\": \"number\"},\r",
+											"            \"order\": {\"type\": \"number\"},\r",
+											"            \"content\": {\"type\": \"string\"},\r",
+											"            \"completed\": {\"type\": \"boolean\"},\r",
+											"            \"label_ids\": {\"type\": \"array\"},\r",
+											"            \"priority\": {\"type\": \"number\"},\r",
+											"            \"comment_count\": {\"type\": \"number\"},\r",
+											"            \"creator\": {\"type\": \"number\"},\r",
+											"            \"created\": {\"type\": \"string\"},\r",
+											"            \"url\": {\"type\": \"string\",}\r",
+											"        }\r",
+											"    }]\r",
+											"}\r",
+											"\r",
+											"pm.test('Schema is valid', function () {\r",
+											"    pm.expect(tv4.validate(pm.response.json(), schema)).to.be.true;\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response time is less than 400ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(400);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseURL}}",
+									"host": [
+										"{{baseURL}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get an active task",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 2xx\", function () {\r",
+											"    pm.response.to.be.success;\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Content-Type is application/json\", function () {\r",
+											"    pm.response.to.be.header(\"Content-Type\", \"application/json\");\r",
+											"});\r",
+											"\r",
+											"var schema = {\r",
+											"    \"type\": \"object\",\r",
+											"    \"required\": [\r",
+											"        \"id\",\r",
+											"        \"assigner\",\r",
+											"        \"project_id\",\r",
+											"        \"section_id\",\r",
+											"        \"order\",\r",
+											"        \"content\",\r",
+											"        \"completed\",\r",
+											"        \"label_ids\",\r",
+											"        \"priority\",\r",
+											"        \"comment_count\",\r",
+											"        \"creator\",\r",
+											"        \"created\",\r",
+											"        \"url\"\r",
+											"    ],\r",
+											"    \"properties\": {\r",
+											"        \"id\": {\"type\": \"number\"},\r",
+											"        \"assigner\": {\"type\": \"number\"},\r",
+											"        \"project_id\": {\"type\": \"number\"},\r",
+											"        \"section_id\": {\"type\": \"number\"},\r",
+											"        \"order\": {\"type\": \"number\"},\r",
+											"        \"content\": {\"type\": \"string\"},\r",
+											"        \"completed\": {\"type\": \"boolean\"},\r",
+											"        \"label_ids\": {\"type\": \"array\"},\r",
+											"        \"priority\": {\"type\": \"number\"},\r",
+											"        \"comment_count\": {\"type\": \"number\"},\r",
+											"        \"creator\": {\"type\": \"number\"},\r",
+											"        \"created\": {\"type\": \"string\"},\r",
+											"        \"url\": {\"type\": \"string\",}\r",
+											"    }\r",
+											"}\r",
+											"\r",
+											"pm.test('Schema is valid', function () {\r",
+											"    pm.expect(tv4.validate(pm.response.json(), schema)).to.be.true;\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response time is less than 400ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(400);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"baseURL = pm.environment.get(\"baseURL\");\r",
+											"token = pm.environment.get(\"token\");\r",
+											"\r",
+											"pm.sendRequest(\r",
+											"    {\r",
+											"        url: baseURL,\r",
+											"        method: \"POST\",\r",
+											"        header: {\r",
+											"            \"Authorization\": \"Bearer \" + token,\r",
+											"            \"Content-Type\": \"application/json\"\r",
+											"        },\r",
+											"        body: {\r",
+											"            mode: 'raw',\r",
+											"            raw: JSON.stringify({ content: \"Demo task\"})\r",
+											"        }\r",
+											"    }, \r",
+											"    function (err, response) {\r",
+											"        console.log(response.json())\r",
+											"        pm.environment.set(\"taskId\", response.json().id)\r",
+											"    }\r",
+											");\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseURL}}/{{taskId}}",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"{{taskId}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Create tasks",
+					"item": [
+						{
+							"name": "Create a new task",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 2xx\", function () {\r",
+											"    pm.response.to.be.success;\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Content-Type is application/json\", function () {\r",
+											"    pm.response.to.be.header(\"Content-Type\", \"application/json\");\r",
+											"});\r",
+											"\r",
+											"var schema = {\r",
+											"    \"type\": \"object\",\r",
+											"    \"required\": [\r",
+											"        \"id\",\r",
+											"        \"assigner\",\r",
+											"        \"project_id\",\r",
+											"        \"section_id\",\r",
+											"        \"order\",\r",
+											"        \"content\",\r",
+											"        \"completed\",\r",
+											"        \"label_ids\",\r",
+											"        \"priority\",\r",
+											"        \"comment_count\",\r",
+											"        \"creator\",\r",
+											"        \"created\",\r",
+											"        \"url\"\r",
+											"    ],\r",
+											"    \"properties\": {\r",
+											"        \"id\": {\"type\": \"number\"},\r",
+											"        \"assigner\": {\"type\": \"number\"},\r",
+											"        \"project_id\": {\"type\": \"number\"},\r",
+											"        \"section_id\": {\"type\": \"number\"},\r",
+											"        \"order\": {\"type\": \"number\"},\r",
+											"        \"content\": {\"type\": \"string\"},\r",
+											"        \"completed\": {\"type\": \"boolean\"},\r",
+											"        \"label_ids\": {\"type\": \"array\"},\r",
+											"        \"priority\": {\"type\": \"number\"},\r",
+											"        \"comment_count\": {\"type\": \"number\"},\r",
+											"        \"creator\": {\"type\": \"number\"},\r",
+											"        \"created\": {\"type\": \"string\"},\r",
+											"        \"url\": {\"type\": \"string\",}\r",
+											"    }\r",
+											"}\r",
+											"\r",
+											"pm.test('Schema is valid', function () {\r",
+											"    pm.expect(tv4.validate(pm.response.json(), schema)).to.be.true;\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response time is less than 400ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(400);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "X-Requested-Id",
+										"value": "$(uuidgen)",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"content\": \"New demo task\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}",
+									"host": [
+										"{{baseURL}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Update tasks",
+					"item": [
+						{
+							"name": "Update a task",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"baseURL = pm.environment.get(\"baseURL\");\r",
+											"token = pm.environment.get(\"token\");\r",
+											"\r",
+											"pm.sendRequest(\r",
+											"    {\r",
+											"        url: baseURL,\r",
+											"        method: \"POST\",\r",
+											"        header: {\r",
+											"            \"Authorization\": \"Bearer \" + token,\r",
+											"            \"Content-Type\": \"application/json\"\r",
+											"        },\r",
+											"        body: {\r",
+											"            mode: 'raw',\r",
+											"            raw: JSON.stringify({ content: \"Task to update\"})\r",
+											"        }\r",
+											"    }, \r",
+											"    function (err, response) {\r",
+											"        console.log(response.json())\r",
+											"        pm.environment.set(\"taskId\", response.json().id)\r",
+											"    }\r",
+											");\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 2xx\", function () {\r",
+											"    pm.response.to.be.success;\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response time is less than 400ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(400);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "X-Requested-Id",
+										"value": "$(uuidgen)",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"content\": \"Task content updated\",\r\n    \"priority\": 4\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/{{taskId}}",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"{{taskId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Change a status task to 'complete'",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"baseURL = pm.environment.get(\"baseURL\");\r",
+											"token = pm.environment.get(\"token\");\r",
+											"\r",
+											"pm.sendRequest(\r",
+											"    {\r",
+											"        url: baseURL,\r",
+											"        method: \"POST\",\r",
+											"        header: {\r",
+											"            \"Authorization\": \"Bearer \" + token,\r",
+											"            \"Content-Type\": \"application/json\"\r",
+											"        },\r",
+											"        body: {\r",
+											"            mode: 'raw',\r",
+											"            raw: JSON.stringify({ content: \"Task to complete\"})\r",
+											"        }\r",
+											"    }, \r",
+											"    function (err, response) {\r",
+											"        console.log(response.json())\r",
+											"        pm.environment.set(\"taskId\", response.json().id)\r",
+											"    }\r",
+											");\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 2xx\", function () {\r",
+											"    pm.response.to.be.success;\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response time is less than 400ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(400);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{baseURL}}/{{taskId}}/close",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"{{taskId}}",
+										"close"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Reopen a task",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"baseURL = pm.environment.get(\"baseURL\");\r",
+											"token = pm.environment.get(\"token\");\r",
+											"\r",
+											"pm.sendRequest(\r",
+											"    {\r",
+											"        url: baseURL,\r",
+											"        method: \"POST\",\r",
+											"        header: {\r",
+											"            \"Authorization\": \"Bearer \" + token,\r",
+											"            \"Content-Type\": \"application/json\"\r",
+											"        },\r",
+											"        body: {\r",
+											"            mode: 'raw',\r",
+											"            raw: JSON.stringify({ content: \"Task to reopen\"})\r",
+											"        }\r",
+											"    }, \r",
+											"    function (err, response) {\r",
+											"        console.log(response.json())\r",
+											"        pm.environment.set(\"taskId\", response.json().id)\r",
+											"    }\r",
+											");\r",
+											"\r",
+											"pm.sendRequest(\r",
+											"    {\r",
+											"        url: baseURL + \"/\" + pm.environment.get(\"taskId\") + \"/close\",\r",
+											"        method: \"POST\",\r",
+											"        header: {\r",
+											"            \"Authorization\": \"Bearer \" + token\r",
+											"        }\r",
+											"    }\r",
+											");"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 2xx\", function () {\r",
+											"    pm.response.to.be.success;\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response time is less than 400ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(400);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{baseURL}}/{{taskId}}/reopen",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"{{taskId}}",
+										"reopen"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Delete tasks",
+					"item": [
+						{
+							"name": "Delete a task",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"baseURL = pm.environment.get(\"baseURL\");\r",
+											"token = pm.environment.get(\"token\");\r",
+											"\r",
+											"pm.sendRequest(\r",
+											"    {\r",
+											"        url: baseURL,\r",
+											"        method: \"POST\",\r",
+											"        header: {\r",
+											"            \"Authorization\": \"Bearer \" + token,\r",
+											"            \"Content-Type\": \"application/json\"\r",
+											"        },\r",
+											"        body: {\r",
+											"            mode: 'raw',\r",
+											"            raw: JSON.stringify({ content: \"Task to be deleted\"})\r",
+											"        }\r",
+											"    }, \r",
+											"    function (err, response) {\r",
+											"        console.log(response.json())\r",
+											"        pm.environment.set(\"taskId\", response.json().id)\r",
+											"    }\r",
+											");\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 2xx\", function () {\r",
+											"    pm.response.to.be.success;\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response time is less than 400ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(400);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseURL}}/{{taskId}}",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"{{taskId}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
